@@ -1,5 +1,5 @@
 
-const API_URL = "https://YOUR-BACKEND.onrender.com";
+const API_URL = "https://visual-sorting-algorithm-comparator-in.onrender.com";
 
 const $ = (id) => document.getElementById(id);
 

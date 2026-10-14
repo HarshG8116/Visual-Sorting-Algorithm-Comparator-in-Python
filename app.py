@@ -10,7 +10,6 @@ CORS(app)
 
 def sort_array(array, algorithm):
     arr = array.copy()
-    original_array = array.copy()
     steps = []
     comparisons = 0
     swaps = 0
@@ -32,12 +31,15 @@ def sort_array(array, algorithm):
     start = perf_counter()
     n = len(arr)
 
+    # BUBBLE SORT
     if algorithm == "bubble":
         for i in range(n):
             for j in range(n - i - 1):
                 comparisons += 1
-                record("compare", [j, j + 1],
-                       f"Comparing {arr[j]} and {arr[j + 1]}")
+                record(
+                    "compare", [j, j + 1],
+                    f"Comparing {arr[j]} and {arr[j + 1]}"
+                )
 
                 if arr[j] > arr[j + 1]:
                     arr[j], arr[j + 1] = arr[j + 1], arr[j]
@@ -45,19 +47,24 @@ def sort_array(array, algorithm):
                     writes += 2
                     record("swap", [j, j + 1], "Swapped elements")
 
+    # SELECTION SORT
     elif algorithm == "selection":
         for i in range(n):
             minimum = i
 
             for j in range(i + 1, n):
                 comparisons += 1
-                record("compare", [minimum, j],
-                       f"Comparing {arr[minimum]} and {arr[j]}")
+                record(
+                    "compare", [minimum, j],
+                    f"Comparing {arr[minimum]} and {arr[j]}"
+                )
 
                 if arr[j] < arr[minimum]:
                     minimum = j
-                    record("minimum", [minimum],
-                           f"New minimum: {arr[minimum]}")
+                    record(
+                        "minimum", [minimum],
+                        f"New minimum: {arr[minimum]}"
+                    )
 
             if minimum != i:
                 arr[i], arr[minimum] = arr[minimum], arr[i]
@@ -65,6 +72,7 @@ def sort_array(array, algorithm):
                 writes += 2
                 record("swap", [i, minimum], "Placed minimum")
 
+    # INSERTION SORT
     elif algorithm == "insertion":
         for i in range(1, n):
             key = arr[i]
@@ -72,14 +80,18 @@ def sort_array(array, algorithm):
 
             while j >= 0:
                 comparisons += 1
-                record("compare", [j, j + 1],
-                       f"Comparing {arr[j]} with key {key}")
+                record(
+                    "compare", [j, j + 1],
+                    f"Comparing {arr[j]} with key {key}"
+                )
 
                 if arr[j] > key:
                     arr[j + 1] = arr[j]
                     writes += 1
-                    record("shift", [j, j + 1],
-                           f"Shifted {arr[j]} right")
+                    record(
+                        "shift", [j, j + 1],
+                        f"Shifted {arr[j]} right"
+                    )
                     j -= 1
                 else:
                     break
@@ -92,7 +104,7 @@ def sort_array(array, algorithm):
 
     return {
         "algorithm": algorithm.title() + " Sort",
-        "original_array": original_array,
+        "original_array": array,
         "sorted_array": arr,
         "steps": steps,
         "metrics": {
@@ -114,10 +126,11 @@ def home():
 @app.route("/api/sort", methods=["POST"])
 def sort_endpoint():
     data = request.get_json(silent=True) or {}
+
     array = data.get("array")
     algorithm = data.get("algorithm", "bubble")
 
-    if algorithm not in ("bubble", "selection", "insertion"):
+    if algorithm not in ["bubble", "selection", "insertion"]:
         return jsonify({
             "error": "Invalid algorithm. Use bubble, selection, or insertion."
         }), 400
@@ -137,8 +150,7 @@ def sort_endpoint():
             "error": "All elements must be finite numbers."
         }), 400
 
-    result = sort_array(array, algorithm)
-    return jsonify(result)
+    return jsonify(sort_array(array, algorithm))
 
 
 if __name__ == "__main__":
