@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visual Sorting Algorithm Comparator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Sorting Algorithm Comparator</h1>
+    <p>Visualize and compare sorting algorithms step by step</p>
+  </header>
+
+  <main>
+    <section class="controls">
+      <label for="arrayInput">Enter numbers (comma-separated)</label>
+      <input id="arrayInput" value="45,12,78,23,56,9,34,67">
+
+      <div class="buttons">
+        <button id="randomBtn">Random Array</button>
+        <button id="startBtn">Start Animation</button>
+        <button id="pauseBtn">Pause</button>
+        <button id="resetBtn">Reset</button>
+      </div>
+
+      <label for="algorithm">Algorithm</label>
+      <select id="algorithm">
+        <option value="bubble">Bubble Sort</option>
+        <option value="selection">Selection Sort</option>
+        <option value="insertion">Insertion Sort</option>
+      </select>
+
+      <label for="speed">Animation speed</label>
+      <select id="speed">
+        <option value="1000">Slow</option>
+        <option value="500" selected>Normal</option>
+        <option value="150">Fast</option>
+      </select>
+
+      <p id="status">Enter numbers and click Start Animation.</p>
+    </section>
+
+    <section class="visualizer">
+      <h2 id="visualTitle">Bubble Sort</h2>
+      <div id="bars" class="bars"></div>
+      <p id="stepInfo">Step: 0</p>
+      <p id="actionInfo">Waiting to start...</p>
+    </section>
+
+    <section class="metrics">
+      <h2>Performance Statistics</h2>
+      <div class="metric-grid">
+        <div class="metric">
+          <span>Comparisons</span>
+          <strong id="comparisons">0</strong>
+        </div>
+        <div class="metric">
+          <span>Swaps</span>
+          <strong id="swaps">0</strong>
+        </div>
+        <div class="metric">
+          <span>Array Writes</span>
+          <strong id="writes">0</strong>
+        </div>
+        <div class="metric">
+          <span>Execution Time</span>
+          <strong id="time">0 ms</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="comparison">
+      <h2>Compare All Algorithms</h2>
+      <button id="compareBtn">Run Comparison</button>
+      <div id="comparisonResults"></div>
+      <p class="note">
+        Execution time measures backend algorithm execution, not animation time.
+        Results can vary between runs.
+      </p>
+    </section>
+  </main>
+
+  <footer>Python + Flask | HTML | CSS | JavaScript</footer>
+  <script src="script.js"></script>
+</body>
+</html>
